@@ -293,6 +293,10 @@ void _initializeOnJSThread(JSContextRefExtractor jsContextExtractor) {
 - (void)setBridge:(RCTBridge *)bridge {
     _bridge = bridge;
 
+    if(![[bridge.bundleURL absoluteString] containsString:@"index"]) {
+        return;
+    }
+
     static __weak RealmReact *s_currentModule = nil;
     [s_currentModule invalidate];
     s_currentModule = self;
